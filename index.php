@@ -36,8 +36,8 @@
         <li><a href="#section1">Home</a></li>
         <li><a href="#section2">About Us</a></li>
         <li><a href="#section3">Jurusan</a></li>
-        <!-- <li><a href="#section5">Video</a></li> -->
-        <li><a href="#section6">Contact</a></li>
+        <li><a href="#section5">Contact</a></li>
+        <li><a class="login_link" onclick="window.location.href='admin/login.php'">Login</a></li>
       </ul>
     </nav>
   </header>
@@ -225,7 +225,7 @@
 
 
   <!-- **** Contact Form Start **** -->
-  <section class="section contact" data-section="section6">
+  <section class="section contact" data-section="section5">
     <div class="container">
       <div class="row">
         <div class="col-md-12">
@@ -348,8 +348,5 @@
             checkSection();
           });
       </script>
-
-
-
 </body>
 </html>
