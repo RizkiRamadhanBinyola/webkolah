@@ -37,7 +37,7 @@
         <li><a href="#section2">About Us</a></li>
         <li><a href="#section3">Jurusan</a></li>
         <li><a href="#section5">Contact</a></li>
-        <li><a class="login_link" onclick="window.location.href='admin/login.php'">Login</a></li>
+        <li><a class="login_link" onclick="window.location.href='panel/login.php'">Login</a></li>
       </ul>
     </nav>
   </header>
