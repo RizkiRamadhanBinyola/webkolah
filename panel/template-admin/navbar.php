@@ -61,6 +61,17 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Data Pendaftaran
                             </a>
+                            <div class="sb-sidenav-menu-heading">Register</div>
+                            <a class="nav-link" href="register.php">
+                                <div class="sb-nav-link-icon"><i class="fa-regular fa-registered"></i></div>
+                                Register
+                            </a>
+
+                            <a class="nav-link" href="register.php">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-right-from-bracket"></i></div>
+                                Logout
+                            </a>
+
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">

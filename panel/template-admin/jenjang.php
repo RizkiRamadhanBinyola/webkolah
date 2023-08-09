@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Dashboard - SB Admin</title>
+        <title>Jenjang - WebKolah</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -19,7 +19,16 @@
                 <!-- Start Body Content -->
                 <main>
                     <!-- Body Content -->
-                    <h3>Halaman Jenjang</h3>
+                    <div class="container">
+                        <h3 class="text-secondary display-6">Jenjang</h3>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Master</li>
+                                <li class="breadcrumb-item active" aria-current="page">Jenjang</li>
+                            </ol>
+                        </nav>
+                    </div>
                 </main>
                 <!-- End Body Content -->
             <?php include 'footer.php'; ?>
