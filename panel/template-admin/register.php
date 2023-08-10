@@ -71,10 +71,10 @@
                                         </div>
     
                                         <div class="col-md-6">
-                                            <select id="inputState" class="form-select">
-                                                <option selected>Hak Akses...</option>
-                                                <option>- Admin</option>
-                                                <option>- Operator</option>
+                                            <select id="inputState" class="form-select form-select mb-3 p-3" aria-label=".form-select-lg example">
+                                                <option selected hidden disabled>Hak Akses...</option>
+                                                <option value="1">- Admin</option>
+                                                <option value="2">- Operator</option>
                                             </select>
                                         </div>
                                     </div>
