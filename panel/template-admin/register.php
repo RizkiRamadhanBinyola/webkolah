@@ -31,65 +31,104 @@
                             <div class="card-body">
                                 <h4>Input data user baru</h4>
                                 <hr>
-                                <form>
-                                    <div class="row mb-3">
-                                        <div class="col-md-6">
-                                            <div class="form-floating mb-3 mb-md-0">
-                                                <input class="form-control" id="inputUsername" type="text" placeholder="Masukan username" />
-                                                <label for="inputUsername">Username</label>
-                                            </div>
+                                <?php
+                                    $db_host = "localhost";
+                                    $db_user = "root";
+                                    $db_pass = "";
+                                    $db_name = "webkolah";
+
+                                    try {    
+                                        //create PDO connection 
+                                        $db = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_pass);
+                                    } catch(PDOException $e) {
+
+                                    }
+                                    if(isset($_POST['register'])){
+
+                                        // filter data yang diinputkan
+                                        $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
+                                        $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
+                                        // enkripsi password
+                                        $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
+                                        $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+                                        $hakAkses = $_POST["hak_akses"];
+
+                                        
+
+                                        // Validasi data kosong
+                                        if(empty($name) || empty($username) || empty($_POST["password"]) || empty($email) || empty($_POST["hak_akses"])) {
+                                            $message = "Semua kolom harus diisi.";
+                                        } else {
+                                            // menyiapkan query
+                                            $sql = "INSERT INTO user (nama, username, email, password, hak_akses) 
+                                                    VALUES (:name, :username, :email, :password, :hak_akses)";
+                                            $stmt = $db->prepare($sql);
+
+                                            // bind parameter ke query
+                                            $params = array(
+                                                ":name" => $name,
+                                                ":username" => $username,
+                                                ":password" => $password,
+                                                ":email" => $email,
+                                                ":hak_akses" => $hakAkses
+                                            );
+
+                                            // eksekusi query untuk menyimpan ke database
+                                            $saved = $stmt->execute($params);
+
+                                            if ($saved) {
+                                                $message = "Registrasi berhasil.";
+                                            } else {
+                                                
+                                            }
+                                        }
+                                    }
+                                ?>
+
+
+                                <?php echo $message ? "<script>alert('$message');</script>" : ''; ?>
+                                <form action="" method="POST">
+
+                                    <div class="form-group mb-3">
+                                        <label for="name">Nama Lengkap</label>
+                                        <input class="form-control" type="text" name="name" placeholder="Nama kamu" />
+                                    </div>
+
+                                    <div class="form-group mb-3">
+                                        <label for="username">Username</label>
+                                        <input class="form-control" type="text" name="username" placeholder="Username" />
+                                    </div>
+
+                                    <div class="form-group mb-3">
+                                        <label for="email">Email</label>
+                                        <input class="form-control" type="email" name="email" placeholder="Alamat Email" />
+                                    </div>
+
+                                    <div class="form-group mb-3">
+                                        <label for="password">Password</label>
+                                        <input class="form-control" type="password" name="password" placeholder="Password" />
+                                    </div>
+
+                                    <div class="form-group mb-3">
+                                        <label for="password">Confirm Passoword</label>
+                                        <input class="form-control" type="password" name="confirm_password" placeholder="Repeat Password" />
+                                    </div>
+
+                                    <select class="form-select pb-3 mb-3" aria-label=".form-select-lg example" name="hak_akses">
+                                        <option hidden>Hak Akses</option>
+                                        <option value="Admin">Admin</option>
+                                        <option value="Operator">Operator</option>
+                                    </select>
+
+                                    <div class="row">
+                                        <div class="col col-md-6">
+                                            <input type="submit" class="btn btn-success btn-block w-100" name="register" value="Daftar" />
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="form-floating mb-3 mb-md-0">
-                                                <input class="form-control" id="inputNama" type="text" placeholder="Masukan Nama anda" />
-                                                <label for="inputNama">Nama</label>
-                                            </div>
+                                        <div class="col col-md-6">
+                                            <input type="reset" class="btn btn-danger btn-block w-100">
                                         </div>
                                     </div>
 
-                                    <div class="row mb-3">
-                                        <div class="col-md-6">
-                                            <div class="form-floating mb-3 mb-md-0">
-                                                <input class="form-control" id="inputPassword" type="password" placeholder="Create a password" />
-                                                <label for="inputPassword">Password</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-floating mb-3 mb-md-0">
-                                                <input class="form-control" id="inputPasswordConfirm" type="password" placeholder="Confirm password" />
-                                                <label for="inputPasswordConfirm">Confirm Password</label>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row mb-3">
-                                        <div class="col-md-6">
-                                            <div class="form-floating mb-3">
-                                                <input class="form-control" id="inputEmail" type="email" placeholder="name@example.com" />
-                                                <label for="inputEmail">Email address</label>
-                                            </div>
-                                        </div>
-    
-                                        <div class="col-md-6">
-                                            <select id="inputState" class="form-select form-select mb-3 p-3" aria-label=".form-select-lg example">
-                                                <option selected hidden disabled>Hak Akses...</option>
-                                                <option value="1">- Admin</option>
-                                                <option value="2">- Operator</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="container text-center">
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <input class="btn btn-primary btn-block w-100" type="submit">
-                                            </div>
-                                            <div class="col-6">
-                                                <input class="btn btn-danger btn-block w-100" type="reset">
-                                            </div>
-                                        </div>
-                                    </div>
                                 </form>
                             </div>
                         </div>

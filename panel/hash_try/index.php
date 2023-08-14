@@ -13,7 +13,8 @@
       }  
       else  
       {  
-           $username = mysqli_real_escape_string($connect, $_POST["username"]);  
+           $username = mysqli_rea
+           l_escape_string($connect, $_POST["username"]);  
            $password = mysqli_real_escape_string($connect, $_POST["password"]);  
            $password = md5($password);  
            $query = "INSERT INTO users (username, password) VALUES('$username', '$password')";  
