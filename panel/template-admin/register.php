@@ -31,105 +31,88 @@
                             <div class="card-body">
                                 <h4>Input data user baru</h4>
                                 <hr>
-                                <?php
-                                    $db_host = "localhost";
-                                    $db_user = "root";
-                                    $db_pass = "";
-                                    $db_name = "webkolah";
+                                    <?php
+                                        require_once("koneksi/koneksi.php");
 
-                                    try {    
-                                        //create PDO connection 
-                                        $db = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_pass);
-                                    } catch(PDOException $e) {
+                                        if(isset($_POST['register'])){
 
-                                    }
-                                    if(isset($_POST['register'])){
+                                            // filter data yang diinputkan
+                                            $nama = filter_input(INPUT_POST, 'nama', FILTER_SANITIZE_STRING);
+                                            $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
+                                            // enkripsi password
+                                            $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
+                                            $confirm_password = password_hash($_POST["confirm_password"], PASSWORD_DEFAULT);
+                                            $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+                                            $hakAkses = $_POST["hak_akses"];
 
-                                        // filter data yang diinputkan
-                                        $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
-                                        $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
-                                        // enkripsi password
-                                        $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
-                                        $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
-                                        $hakAkses = $_POST["hak_akses"];
+                                            if(empty($name) || empty($username) || empty($_POST["password"]) || empty($email) || empty($_POST["hak_akses"])) {
+                                                $message = "Semua kolom harus diisi.";
+                                            } 
 
-                                        
+                                            if ($_POST["password"] === $_POST["confirm_password"]) {
+                                                // success!
+                                                // menyiapkan query
+                                                $sql = "INSERT INTO user (nama, username, email, password, hak_akses) 
+                                                VALUES (:nama, :username, :email, :password, :hak_akses)";
+                                                    $stmt = $conn->prepare($sql);
 
-                                        // Validasi data kosong
-                                        if(empty($name) || empty($username) || empty($_POST["password"]) || empty($email) || empty($_POST["hak_akses"])) {
-                                            $message = "Semua kolom harus diisi.";
-                                        } else {
-                                            // menyiapkan query
-                                            $sql = "INSERT INTO user (nama, username, email, password, hak_akses) 
-                                                    VALUES (:name, :username, :email, :password, :hak_akses)";
-                                            $stmt = $db->prepare($sql);
+                                                // bind parameter ke query
+                                                $params = array(
+                                                    ":nama" => $nama,
+                                                    ":username" => $username,
+                                                    ":password" => $password,
+                                                    ":email" => $email,
+                                                    ":hak_akses" => $hakAkses
+                                                );
+                                                $saved = $stmt->execute($params);
+                                                echo "Berhasil terkirim";
+                                             }
+                                             else {
+                                                // failed :(
+                                                    echo "Password harus sama";
 
-                                            // bind parameter ke query
-                                            $params = array(
-                                                ":name" => $name,
-                                                ":username" => $username,
-                                                ":password" => $password,
-                                                ":email" => $email,
-                                                ":hak_akses" => $hakAkses
-                                            );
+                                             }
 
-                                            // eksekusi query untuk menyimpan ke database
-                                            $saved = $stmt->execute($params);
-
-                                            if ($saved) {
-                                                $message = "Registrasi berhasil.";
-                                            } else {
-                                                
-                                            }
                                         }
-                                    }
-                                ?>
 
-
-                                <?php echo $message ? "<script>alert('$message');</script>" : ''; ?>
-                                <form action="" method="POST">
-
-                                    <div class="form-group mb-3">
-                                        <label for="name">Nama Lengkap</label>
-                                        <input class="form-control" type="text" name="name" placeholder="Nama kamu" />
-                                    </div>
-
-                                    <div class="form-group mb-3">
-                                        <label for="username">Username</label>
-                                        <input class="form-control" type="text" name="username" placeholder="Username" />
-                                    </div>
-
-                                    <div class="form-group mb-3">
-                                        <label for="email">Email</label>
-                                        <input class="form-control" type="email" name="email" placeholder="Alamat Email" />
-                                    </div>
-
-                                    <div class="form-group mb-3">
-                                        <label for="password">Password</label>
-                                        <input class="form-control" type="password" name="password" placeholder="Password" />
-                                    </div>
-
-                                    <div class="form-group mb-3">
-                                        <label for="password">Confirm Passoword</label>
-                                        <input class="form-control" type="password" name="confirm_password" placeholder="Repeat Password" />
-                                    </div>
-
-                                    <select class="form-select pb-3 mb-3" aria-label=".form-select-lg example" name="hak_akses">
-                                        <option hidden>Hak Akses</option>
-                                        <option value="Admin">Admin</option>
-                                        <option value="Operator">Operator</option>
-                                    </select>
-
-                                    <div class="row">
-                                        <div class="col col-md-6">
-                                            <input type="submit" class="btn btn-success btn-block w-100" name="register" value="Daftar" />
-                                        </div>
-                                        <div class="col col-md-6">
-                                            <input type="reset" class="btn btn-danger btn-block w-100">
-                                        </div>
-                                    </div>
-
-                                </form>
+                                    ?>
+                                            <form action="" method="POST">
+                                                <div class="row">
+                                                    <div class="form-floating mb-3">
+                                                        <input type="text" name="username" class="form-control" id="username" placeholder="Username">
+                                                        <label class="mx-2" for="username">Username</label>
+                                                    </div>
+                                                    <div class="form-floating mb-3">
+                                                        <input type="text" name="nama" class="form-control" id="nm" placeholder="Nama">
+                                                        <label class="mx-2" for="nm">Nama</label>
+                                                    </div>
+                                                    <div class="form-floating mb-3">
+                                                        <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
+                                                        <label class="mx-2" for="floatingPassword">Password</label>
+                                                    </div>
+                                                    <div class="form-floating mb-3">
+                                                        <input type="password" name="confirm_password" class="form-control" id="rfloatingPassword" placeholder="Repeat Password">
+                                                        <label class="mx-2" for="rfloatingPassword">Repeat Password</label>
+                                                    </div>
+                                                    <div class="form-floating mb-3">
+                                                        <input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                                                        <label class="mx-2" for="floatingInput">Email address</label>
+                                                    </div>
+                                                    <div>
+                                                        <select name="hak_akses" class="form-select form-select mb-3" aria-label=".form-select-lg example">
+                                                            <option selected hidden disabled>Hak Akses</option>
+                                                            <option value="Admin">Admin</option>
+                                                            <option value="Operator">Operator</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <input class="btn btn-primary btn-block w-100" type="submit" name="register" value="Daftar">
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <input class="btn btn-danger btn-block w-100" type="reset">
+                                                    </div>
+                                                </div>
+                                            </form>
                             </div>
                         </div>
                     </div>

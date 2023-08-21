@@ -1,14 +1,13 @@
 <?php
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
 
-$db_host = "localhost";
-$db_user = "root";
-$db_pass = "";
-$db_name = "webkolah";
-
-try {    
-    //create PDO connection 
-    $db = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_pass);
-} catch(PDOException $e) {
-    //show error
-    die("Terjadi masalah: " . $e->getMessage());
-}
+  try {
+    $conn = new PDO("mysql:host=$servername;dbname=webkolah", $username, $password);
+    // set the PDO error mode to exception
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  } catch(PDOException $e) {
+    echo "DB Connection Fail" . $e->getMessage();
+  }
+?>
