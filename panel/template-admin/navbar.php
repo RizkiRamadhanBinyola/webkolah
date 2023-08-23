@@ -63,8 +63,12 @@
                             </a>
                             <div class="sb-sidenav-menu-heading">Register</div>
                             <a class="nav-link" href="register.php">
-                                <div class="sb-nav-link-icon"><i class="fa-regular fa-registered"></i></div>
-                                Register
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-id-card"></i></div>
+                                Register user
+                            </a>
+                            <a class="nav-link" href="data-user.php">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-table"></i></div>
+                                Data user
                             </a>
 
                             <a class="nav-link" href="register.php">
