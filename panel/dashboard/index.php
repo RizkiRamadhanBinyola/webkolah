@@ -1,3 +1,16 @@
+<?php  
+ //login_success.php  
+ session_start();  
+ if(isset($_SESSION["username"]))  
+ {  
+      echo "<script>prosesLogin();</script>";  
+ }  
+ else  
+ {  
+      header("location:../login.php");  
+ }  
+ ?>  
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -10,6 +23,7 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </head>
     <body class="sb-nav-fixed">
         <!-- Navbar -->
@@ -110,6 +124,32 @@
         <script src="assets/demo/chart-bar-demo.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
         <script src="js/datatables-simple-demo.js"></script>
+        <script>
+            function prosesLogin() {
+                let timerInterval
+                Swal.fire({
+                    title: 'Auto close alert!',
+                    html: 'I will close in <b></b> milliseconds.',
+                    timer: 2000,
+                    timerProgressBar: true,
+                    didOpen: () => {
+                        Swal.showLoading()
+                        const b = Swal.getHtmlContainer().querySelector('b')
+                        timerInterval = setInterval(() => {
+                        b.textContent = Swal.getTimerLeft()
+                        }, 100)
+                    },
+                    willClose: () => {
+                        clearInterval(timerInterval)
+                    }
+                    }).then((result) => {
+                    /* Read more about handling dismissals below */
+                    if (result.dismiss === Swal.DismissReason.timer) {
+                        console.log('I was closed by the timer')
+                    }
+                })
+            }    
+        </script>
     
     </body>
 </html>
