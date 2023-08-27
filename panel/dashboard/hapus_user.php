@@ -1,22 +1,16 @@
-
 <?php
+include 'koneksi/koneksi.php';
+$id = $_GET["id_user"];
+//mengambil id yang ingin dihapus
 
-$id_user = $_GET['id_user'];
+    //jalankan query DELETE untuk menghapus data
+    $query = "DELETE FROM user WHERE id_user='$id' ";
+    $hasil_query = mysqli_query($conn, $query);
 
-// connect to the database and select the publisher
-require_once 'koneksi/config.php';
-
-// construct the delete statement
-$sql = 'DELETE FROM user
-        WHERE id_user = :id_user';
-
-// prepare the statement for execution
-$statement = $conn->prepare($sql);
-$statement->bindParam(':id_user', $id_user, PDO::PARAM_INT);
-
-// execute the statement
-if ($statement->execute()) {
-    
-    header('Location: data-user.php');
-}
-?>
+    //periksa query, apakah ada kesalahan
+    if(!$hasil_query) {
+      die ("Gagal menghapus data: ".mysqli_errno($conn).
+       " - ".mysqli_error($conn));
+    } else {
+      echo "<script>alert('Data berhasil dihapus.');window.location='data-user.php';</script>";
+    }

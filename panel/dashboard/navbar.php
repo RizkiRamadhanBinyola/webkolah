@@ -1,3 +1,19 @@
+<?php
+session_start();
+if (!isset($_SESSION['login'])) {
+
+?>
+    <script>
+        alert("HARUS LOGIN TERLEBIH DAHULU!");
+        window.open('../login.php', '_self');
+    </script>
+<?php
+} else {
+    $status = $_SESSION['hak_akses'];
+}
+
+?>           
+        
         <!-- Navbar -->
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
                 <!-- Navbar Brand-->

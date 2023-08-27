@@ -1,15 +1,4 @@
-<?php  
- //login_success.php  
- session_start();  
- if(isset($_SESSION["username"]))  
- {  
-      echo "<script>prosesLogin();</script>";  
- }  
- else  
- {  
-      header("location:../login.php");  
- }  
- ?>  
+
 
 <!DOCTYPE html>
 <html lang="en">
