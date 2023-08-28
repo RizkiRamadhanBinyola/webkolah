@@ -55,7 +55,7 @@
                                         <td><?= $row['email']; ?></td>
                                         <td><?= $row['hak_akses']; ?></td>
                                         <td>
-                                            <a class="btn btn-warning btn-sm" type="button"><i class="fa-solid fa-pen-to-square"></i></a>
+                                            <a class="btn btn-warning btn-sm" type="button" href="edit_user.php?id_user=<?= $row['id_user']; ?>"><i class="fa-solid fa-pen-to-square"></i></a>
                                             <a class="btn btn-danger btn-sm" type="button" onclick="return confirm('Data akan di Hapus?')" href="hapus_user.php?id_user=<?= $row['id_user']; ?>"><i class="fa-solid fa-trash"></i></a>
                                         </td>
                                     </tr>

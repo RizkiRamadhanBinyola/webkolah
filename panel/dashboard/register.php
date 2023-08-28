@@ -62,7 +62,7 @@ if (isset($_POST['regis'])) {
     $password = password_hash($password, PASSWORD_DEFAULT);
 
     // Menyimpan data ke db
-    mysqli_query($conn, "INSERT INTO user VALUES('','$username','$password','$nama','$email','$akses')");
+    mysqli_query($conn, "INSERT INTO user VALUES('','$username','$password','$nama','$email','$hakAkses')");
     if (mysqli_affected_rows($conn)) {
         echo "
         <script>
@@ -132,7 +132,7 @@ if (isset($_POST['regis'])) {
                                         </div>
                                         <div>
                                             <select name="hak_akses" class="form-select form-select mb-3" aria-label=".form-select-lg example">
-                                                <option selected hidden disabled>Hak Akses</option>
+                                                <option selected hidden disabled>-- Hak Akses --</option>
                                                 <option value="admin">admin</option>
                                                 <option value="operator">operator</option>
                                             </select>
