@@ -1,17 +1,6 @@
 <?php
 
-include 'navbar.php';
 include 'koneksi/koneksi.php';
-
-if ($_SESSION['hak_akses'] !== 'admin') {
-    echo "
-    <script>
-        alert('Tidak mempunyai akses, Dilarang Masuk!');
-        document.location.href = 'index.php';
-    </script>
-    ";
-    exit();
-}
 
 if (isset($_POST['regis'])) {
     $username = strtolower(stripslashes($_POST['username']));
@@ -91,7 +80,7 @@ if (isset($_POST['regis'])) {
     </head>
     <body class="sb-nav-fixed">
         <!-- Navbar -->
-        
+            <?php include 'navbar.php'; ?>
             <div id="layoutSidenav_content">
                 <!-- Start Body Content -->
                 <main>

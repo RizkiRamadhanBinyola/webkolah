@@ -58,11 +58,17 @@ if (!isset($_SESSION['login'])) {
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Data Pendaftaran
                             </a>
-                            <div class="sb-sidenav-menu-heading">Register</div>
-                            <a class="nav-link" href="register.php">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-id-card"></i></div>
-                                Register user
-                            </a>
+                            
+                            <?php if ($_SESSION['hak_akses'] == 'admin') : ?>
+                                <div class="sb-sidenav-menu-heading">Register</div>
+                                <a class="nav-link" href="register.php">
+                                    <div class="sb-nav-link-icon"><i class="fa-solid fa-id-card"></i></div>
+                                    Register user
+                                </a>
+
+                            <?php endif; ?>
+
+                            <!-- <div class="sb-sidenav-menu-heading">Data</div> -->
                             <a class="nav-link" href="data-user.php">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-table"></i></div>
                                 Data user
@@ -77,9 +83,10 @@ if (!isset($_SESSION['login'])) {
                     </div>
                     <div class="sb-sidenav-footer">
                         <?php
-                            if (isset($_SESSION['nama'])) {
+                            if (isset($_SESSION['nama'], $_SESSION['hak_akses'])) {
                         ?>
-                        <div class="fs-6">Logged in as : <?= $_SESSION['nama'] ?></div>
+                        <div class="fs-6"><i class="fa-solid fa-user"></i> <?= $_SESSION['nama']; ?> Sebagai <?= $_SESSION['hak_akses']; ?></div>
+
                         <?php
                             }
                         ?>
