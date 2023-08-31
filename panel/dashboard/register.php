@@ -80,10 +80,11 @@ if (isset($_POST['regis'])) {
     </head>
     <body class="sb-nav-fixed">
         <!-- Navbar -->
-            <?php include 'navbar.php'; ?>
+        <?php include 'navbar.php'; ?>
+        <?php include 'admin.php'; ?>
             <div id="layoutSidenav_content">
                 <!-- Start Body Content -->
-                <main>
+                <main class="admin">
                     <!-- Body Content -->
                     <div class="container mt-5">
                         <h3 class="text-secondary display-6">Form Register User</h3>
