@@ -35,6 +35,7 @@ if (!isset($_SESSION['login'])) {
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-house"></i></div>
                                 Home
                             </a>
+                            <?php if($_SESSION['hak_akses'] == 'admin') : ?>
                             <div class="sb-sidenav-menu-heading">Interface</div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-pen-to-square"></i></div>
@@ -49,6 +50,7 @@ if (!isset($_SESSION['login'])) {
                                     <a class="nav-link" href="jenjang.php">Jenjang</a>
                                 </nav>
                             </div>
+                            <?php endif; ?>
                             <div class="sb-sidenav-menu-heading">Daftar</div>
                             <a class="nav-link" href="pendaftaran.php">
                                 <div class="sb-nav-link-icon"><i class="fa-regular fa-registered"></i></div>
@@ -66,13 +68,12 @@ if (!isset($_SESSION['login'])) {
                                     Register user
                                 </a>
 
-                            <?php endif; ?>
-
                             <!-- <div class="sb-sidenav-menu-heading">Data</div> -->
                             <a class="nav-link" href="data-user.php">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-table"></i></div>
                                 Data user
                             </a>
+                            <?php endif; ?>
 
                             <a class="nav-link" href="logout.php">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-right-from-bracket"></i></div>

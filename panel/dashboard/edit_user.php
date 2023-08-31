@@ -1,14 +1,5 @@
 <?php
-include 'navbar.php';
 include 'koneksi/koneksi.php';
-if ($_SESSION['hak_akses'] != 'admin') {
-    echo "
-    <script>
-        alert('Tidak Memiliki Akses, DILARANG MASUK!');
-        document.location.href='index.php';
-    </script>
-    ";
-}
 
 if (isset($_POST['simpan'])) {
     $username = strtolower(stripslashes($_POST['username']));
@@ -82,6 +73,7 @@ $edit = mysqli_fetch_assoc($data);
     </head>
     <body class="sb-nav-fixed">
         <!-- Navbar -->
+        <?php include 'navbar.php'; ?>
         
             <div id="layoutSidenav_content">
                 <!-- Start Body Content -->
@@ -136,7 +128,7 @@ $edit = mysqli_fetch_assoc($data);
                                         </div>
                                         <div class="col-6">
                                             <input class="btn btn-danger btn-block w-100" type="reset">
-                                        </div>
+                                        </div>   
                                     </div>
                                 </form>
                             </div>
