@@ -56,7 +56,7 @@ if (!isset($_SESSION['login'])) {
                                 <div class="sb-nav-link-icon"><i class="fa-regular fa-registered"></i></div>
                                 Pendaftaran
                             </a>
-                            <a class="nav-link" href="dp.php">
+                            <a class="nav-link" href="data-pendaftaran.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Data Pendaftaran
                             </a>

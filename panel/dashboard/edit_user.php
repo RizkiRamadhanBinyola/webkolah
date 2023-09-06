@@ -3,37 +3,51 @@ include 'koneksi/koneksi.php';
 
 if (isset($_POST['simpan'])) {
     $username = strtolower(stripslashes($_POST['username']));
-    $password = mysqli_real_escape_string($conn, $_POST['password']);
-    $password2 = mysqli_real_escape_string($conn, $_POST['password2']);
     $nama = htmlspecialchars($_POST['nama']);
     $email = htmlspecialchars($_POST['email']);
     $akses = htmlspecialchars($_POST['hak_akses']);
     $id_user = $_POST['id_user'];
 
-    //cek konfirmasi password
-    if ($password !== $password2) {
-        echo "
-        <script>
-            alert('Konfirmasi Password Salah');
-            document.location.href='registrasi.php';
-        </script>
-        ";
-        return false;
-    }
-    //enkripsi password
-    $password = password_hash($password, PASSWORD_DEFAULT);
+    // Check if a new password was provided
+    if (!empty($_POST['password'])) {
+        $password = mysqli_real_escape_string($conn, $_POST['password']);
+        $password2 = mysqli_real_escape_string($conn, $_POST['password2']);
 
-    $query = "UPDATE user SET
-            id_user='$id_user',
-            username='$username',
-            `password` ='$password',
-            nama='$nama',
-            email='$email',
-            hak_akses='$akses'
-            WHERE id_user='$id_user'
+        // Check password confirmation
+        if ($password !== $password2) {
+            echo "
+            <script>
+                alert('Konfirmasi Password Salah');
+                document.location.href='registrasi.php';
+            </script>
             ";
-    // var_dump($query);
-    // exit();
+            return false;
+        }
+
+        // Hash the new password
+        $password = password_hash($password, PASSWORD_DEFAULT);
+
+        $query = "UPDATE user SET
+                id_user='$id_user',
+                username='$username',
+                `password` ='$password',
+                nama='$nama',
+                email='$email',
+                hak_akses='$akses'
+                WHERE id_user='$id_user'
+                ";
+    } else {
+        // If no new password was provided, update without changing the password
+        $query = "UPDATE user SET
+                id_user='$id_user',
+                username='$username',
+                nama='$nama',
+                email='$email',
+                hak_akses='$akses'
+                WHERE id_user='$id_user'
+                ";
+    }
+
     mysqli_query($conn, $query);
 
     if (mysqli_affected_rows($conn) > 0) {
@@ -93,44 +107,43 @@ $edit = mysqli_fetch_assoc($data);
                                 <hr>
                                 
                                 <form action="" method="POST">
-                                    <input type="hidden" name="id_user" id="id_user" value="<?= $edit['id_user']; ?>">
-                                    <div class="row">
-                                        <div class="form-floating mb-3">
-                                            <input type="text" name="username" class="form-control" id="username" value="<?= $edit['username'] ?>">
-                                            <label class="mx-2" for="username">Username</label>
-                                        </div>
-                                        <div class="form-floating mb-3">
-                                            <input type="text" name="nama" class="form-control" id="nm" value="<?= $edit['nama'] ?>">
-                                            <label class="mx-2" for="nm">Nama</label>
-                                        </div>
-                                        <div class="form-floating mb-3">
+                                <input type="hidden" name="id_user" id="id_user" value="<?= $edit['id_user']; ?>">
+                                <div class="row">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" name="username" class="form-control" id="username" value="<?= $edit['username'] ?>">
+                                        <label class="mx-2" for="username">Username</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input type="text" name="nama" class="form-control" id="nm" value="<?= $edit['nama'] ?>">
+                                        <label class="mx-2" for="nm">Nama</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
                                         <input class="form-control" type="password" id="password1" name="password"/>
-                                            <label class="mx-2" for="floatingPassword">Password</label>
-                                        </div>
-                                        <div class="form-floating mb-3">
-                                            <input type="password" name="password2" class="form-control" id="rfloatingPassword">
-                                            <label class="mx-2" for="rfloatingPassword">Repeat Password</label>
-                                        </div>
-                                        <div class="form-floating mb-3">
-                                            <input type="email" name="email" class="form-control" id="floatingInput" value="<?= $edit['email'] ?>">
-                                            <label class="mx-2" for="floatingInput">Email address</label>
-                                        </div>
-                                        <div>
+                                        <label class="mx-2" for="floatingPassword">Password</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input type="password" name="password2" class="form-control" id="rfloatingPassword">
+                                        <label class="mx-2" for="rfloatingPassword">Repeat Password</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input type="email" name="email" class="form-control" id="floatingInput" value="<?= $edit['email'] ?>">
+                                        <label class="mx-2" for="floatingInput">Email address</label>
+                                    </div>
+                                    <div>
                                         <select name="hak_akses" class="form-select form-select mb-3" aria-label=".form-select-lg example">
                                             <option selected hidden disabled>-- Pilih Hak Akses --</option>
                                             <option value="admin" <?= ($edit['hak_akses'] == 'admin') ? 'selected' : '' ?>>admin</option>
                                             <option value="operator" <?= ($edit['hak_akses'] == 'operator') ? 'selected' : '' ?>>operator</option>
                                         </select>
-
-                                        </div>
-                                        <div class="col-6">
-                                            <input class="btn btn-success btn-block w-100" type="submit" name="simpan" value="Simpan">
-                                        </div>
-                                        <div class="col-6">
-                                            <input class="btn btn-danger btn-block w-100" type="reset">
-                                        </div>   
                                     </div>
-                                </form>
+                                    <div class="col-6">
+                                        <input class="btn btn-success btn-block w-100" type="submit" name="simpan" value="Simpan">
+                                    </div>
+                                    <div class="col-6">
+                                        <input class="btn btn-danger btn-block w-100" type="reset">
+                                    </div>
+                                </div>
+                            </form>
                             </div>
                         </div>
                     </div>
