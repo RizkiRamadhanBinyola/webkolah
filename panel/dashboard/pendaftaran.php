@@ -27,6 +27,50 @@
                                 <li class="breadcrumb-item active" aria-current="page">Pendaftaran</li>
                             </ol>
                         </nav>
+
+                        <div class="card">
+                            <div class="card-body">
+                                <h4>Input data user baru</h4>
+                                <hr>
+                                <form action="" method="POST">
+                                    <div class="row">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" name="username" class="form-control" id="username" placeholder="Username">
+                                            <label class="mx-2" for="username">Username</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" name="nama" class="form-control" id="nm" placeholder="Nama">
+                                            <label class="mx-2" for="nm">Nama</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
+                                            <label class="mx-2" for="floatingPassword">Password</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="password" name="password2" class="form-control" id="rfloatingPassword" placeholder="Repeat Password">
+                                            <label class="mx-2" for="rfloatingPassword">Repeat Password</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                                            <label class="mx-2" for="floatingInput">Email address</label>
+                                        </div>
+                                        <div>
+                                            <select name="hak_akses" class="form-select form-select mb-3" aria-label=".form-select-lg example">
+                                                <option selected hidden disabled>-- Hak Akses --</option>
+                                                <option value="admin">admin</option>
+                                                <option value="operator">operator</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-6">
+                                            <input class="btn btn-success btn-block w-100" type="submit" name="regis" value="Daftar">
+                                        </div>
+                                        <div class="col-6">
+                                            <input class="btn btn-danger btn-block w-100" type="reset">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </main>
                 <!-- End Body Content -->
