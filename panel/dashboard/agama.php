@@ -70,6 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if ($insert_stmt->execute()) {
                     echo "<script>alert('Data berhasil disimpan');</script>";
                 } else {
+                    
                     echo "<script>alert('Data gagal disimpan');</script>";
                 }
             } elseif ($mode == "Edit") {
