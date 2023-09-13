@@ -19,7 +19,7 @@ if (isset($_COOKIE['id']) && isset($_COOKIE['key'])) {
 
 //masuk ke session
 if (isset($_SESSION["login"])) {
-  header("Location: index.php");
+  header("Location: login.php");
 }
 //cek username dan password
 if (isset($_POST['login'])) {
