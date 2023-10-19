@@ -3,19 +3,19 @@ session_start();
 include 'dashboard/koneksi/koneksi.php';
 
 //cek cookie
-if (isset($_COOKIE['id']) && isset($_COOKIE['key'])) {
-  $id = $_COOKIE['id'];
-  $key = $_COOKIE['key'];
+// if (isset($_COOKIE['id']) && isset($_COOKIE['key'])) {
+//   $id = $_COOKIE['id'];
+//   $key = $_COOKIE['key'];
 
-  $db = mysqli_query($conn, "SELECT username FROM user WHERE id_user = '$id'");
+//   $db = mysqli_query($conn, "SELECT username FROM user WHERE id_user = '$id'");
 
-  $row = mysqli_fetch_assoc($db);
+//   $row = mysqli_fetch_assoc($db);
 
-  // cek cookie denganm username
-  if ($key === hash('sha256', $row['username'])) {
-    $_SESSION['login'] = true;
-  }
-}
+//   // cek cookie denganm username
+//   if ($key === hash('sha256', $row['username'])) {
+//     $_SESSION['login'] = true;
+//   }
+// }
 
 //masuk ke session
 if (isset($_SESSION["login"])) {
