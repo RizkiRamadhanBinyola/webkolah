@@ -19,9 +19,46 @@
         include 'koneksi/koneksi.php';
         include 'navbar.php'; 
 
-        // if (isset($_POST['daftar'])) {
-        //     $nis = 
-        // }
+        if (isset($_POST['daftar'])) {
+            $nis = htmlspecialchars($_POST['nis']);
+            $nama_siswa = htmlspecialchars($_POST['nama_siswa']);
+            $alamat = htmlspecialchars($_POST['alamat']);
+            $jk = htmlspecialchars($_POST['jenis_kelamin']);
+            $tempatLahir = htmlspecialchars($_POST['tempat_lahir']);
+            $negara = htmlspecialchars($_POST['negara']);
+            $agama = htmlspecialchars($_POST['agama']);
+            $kelas = htmlspecialchars($_POST['kelas']);
+            $tglInput = date("Y-m-d");
+            $userInput = $_SESSION['nama'];
+            $id_user = $_SESSION['id_user'];
+
+            $result = mysqli_query($conn, "SELECT nis FROM pendaftaran WHERE nis = '$nis'");
+            if (mysqli_fetch_assoc($result)) {
+                # code...
+                echo "
+                <script>
+                    alert('username sudah terdaftar, silahkan ganit!');
+                    document.location.href='pendaftaran.php';
+                </script>
+                ";
+                return false;
+            }
+
+            mysqli_query($conn, "INSERT INTO pendaftaran (nis, nama_siswa, alamat, jenis_kelamin, tempat_lahir, tgl_lahir, status, id_negara, id_agama, id_jurusan, tgl_input, user_input, tgl_update, user_update, id_user) VALUES ('$nis', '$nama_siswa', '$alamat', '$jk', '$tempatLahir', '$tglInput', 'status', '$negara', '$agama', '$kelas', '$tglInput', '$userInput', '$tglInput', '$userInput', '$id_user')");
+
+            if (mysqli_affected_rows($conn) > 0) {
+                # code...
+                echo "
+                <script>
+                    alert('username baru berhasil di buat!');
+                    document.location.href='pendaftaran.php';
+                </script>
+                ";
+
+            }else {
+                echo mysqli_error($conn);
+            }
+        }
     ?>
 
     <div id="layoutSidenav_content">
@@ -41,7 +78,7 @@
                     <div class="card-body">
                         <h4>Input data user baru</h4>
                         <hr>
-                        <form >
+                        <form action="" method="POST">
                             <div class="row">
                                 <div class="form-floating mb-3">
                                     <input type="text" name="nis" class="form-control" id="nis" placeholder="NIS">

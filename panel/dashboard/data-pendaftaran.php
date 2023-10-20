@@ -28,6 +28,50 @@
                             </ol>
                         </nav>
                     </div>
+                    <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                DataTable Example
+                            </div>
+                            <div class="card-body">
+                                <table id="datatablesSimple">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>nis</th>
+                                            <th>nama_siswa</th>
+                                            <th>alamat</th>
+                                            <th>jenis kelamin</th>
+                                            <th>Detail</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                            include 'koneksi/koneksi.php';
+                                            $no = 1;
+                                            $query = "SELECT *
+                                            FROM pendaftaran ";
+                                            $sql = mysqli_query($conn, $query);
+                                            while ($row = mysqli_fetch_assoc($sql)) {
+                                        ?>
+                                        <tr>
+                                            <td><?= $no++; ?></td>
+                                            <td><?= $row['nis'] ?></td>
+                                            <td><?= $row['nama_siswa']?></td>
+                                            <td><?= $row['alamat']?></td>
+                                            <td><?= $row['jenis_kelamin']?></td>
+                                            <td><a class="btn btn-warning btn-sm" type="button"></a></td>
+                                            <td><a class="btn btn-warning btn-sm" type="button"></a></td>
+                                        </tr>
+                                        <?php
+                                            }
+                                        ?>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                 </main>
                 <!-- End Body Content -->
             <?php include 'footer.php'; ?>
